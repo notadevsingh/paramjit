@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Paramjit Singh Pannu — Driving your moments forward</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     /* ── Reset & Root ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,7 +22,6 @@
       --text-primary: #111111;
       --text-secondary: #555555;
       --text-tertiary: #888888;
-      --text-quaternary: #aaaaaa;
       --border: #e5e5e7;
       --accent: #2563EB;
       --accent-hover: #1D4ED8;
@@ -27,11 +32,11 @@
       --whatsapp: #25D366;
       --instagram: #E4405F;
       --radius-sm: 8px;
-      --radius-md: 10px;
-      --radius-lg: 12px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
       --radius-full: 9999px;
-      --shadow: 0 1px 3px rgba(0,0,0,0.06);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
     }
 
     @media (prefers-color-scheme: dark) {
@@ -42,7 +47,6 @@
         --text-primary: #f0f0f0;
         --text-secondary: #a0a0a8;
         --text-tertiary: #707078;
-        --text-quaternary: #505058;
         --border: #2a2a30;
         --accent: #3b82f6;
         --accent-hover: #60a5fa;
@@ -53,25 +57,26 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text-primary);
-      line-height: 1.5;
+      line-height: 1.6;
+      font-size: 18px; /* base font larger */
       -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 600px;
+      max-width: 640px;
       margin: 0 auto;
-      padding: 20px 16px 40px;
+      padding: 24px 16px 48px;
     }
 
     /* ── Animations ── */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .animate-in { animation: fadeInUp 0.4s ease both; }
+    .animate-in { animation: fadeInUp 0.5s ease both; }
     .delay-1 { animation-delay: 0.05s; }
     .delay-2 { animation-delay: 0.10s; }
     .delay-3 { animation-delay: 0.15s; }
@@ -83,21 +88,19 @@
     .header {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 18px;
+      margin-bottom: 24px;
     }
 
     .avatar {
-      width: 80px;
-      height: 80px;
+      width: 88px;
+      height: 88px;
       border-radius: var(--radius-full);
       background: var(--bg-tertiary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
       flex-shrink: 0;
       overflow: hidden;
-      border: 2px solid var(--border);
+      border: 3px solid var(--border);
+      box-shadow: var(--shadow);
     }
     .avatar img {
       width: 100%;
@@ -110,14 +113,14 @@
       min-width: 0;
     }
     .header-info h1 {
-      font-size: 22px;
-      font-weight: 600;
+      font-size: 26px;
+      font-weight: 700;
       line-height: 1.2;
       margin-bottom: 2px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.3px;
     }
     .header-info .subtitle {
-      font-size: 14px;
+      font-size: 16px;
       color: var(--text-secondary);
       margin-bottom: 6px;
     }
@@ -125,12 +128,12 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--instagram);
       text-decoration: none;
       background: rgba(228,64,95,0.08);
-      padding: 4px 12px 4px 8px;
+      padding: 4px 14px 4px 10px;
       border-radius: var(--radius-full);
       transition: background 0.2s;
     }
@@ -138,126 +141,134 @@
       background: rgba(228,64,95,0.16);
     }
     .header-info .badge-instagram svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
     }
 
     .rating-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 15px;
+      gap: 8px;
+      font-size: 17px;
       margin-top: 4px;
     }
     .rating-row .score { font-weight: 600; }
     .rating-row .count { color: var(--text-tertiary); }
     .stars-inline { display: flex; gap: 2px; }
-    .stars-inline svg { width: 16px; height: 16px; }
+    .stars-inline svg { width: 18px; height: 18px; }
 
     /* ── Hero Greeting ── */
     .hero-greeting {
       background: var(--bg-secondary);
       border-radius: var(--radius-lg);
-      padding: 18px 20px;
-      margin-bottom: 24px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
       border: 1px solid var(--border);
+      box-shadow: var(--shadow);
     }
     .hero-greeting p {
-      font-size: 15px;
+      font-size: 17px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.7;
     }
     .hero-greeting strong {
       color: var(--text-primary);
+      font-weight: 600;
     }
 
     /* ── Stats ── */
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 28px;
     }
     .stat-card {
       text-align: center;
-      padding: 16px 8px;
+      padding: 18px 8px;
       border-radius: var(--radius-md);
       border: 1px solid var(--border);
       background: var(--bg);
-      transition: transform 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s;
     }
     .stat-card:active { transform: scale(0.97); }
     .stat-card .num {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 2px;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 4px;
       letter-spacing: -0.3px;
     }
     .stat-card .label {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-secondary);
     }
 
     /* ── Actions ── */
     .actions {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 28px;
     }
-    .btn-primary {
-      flex: 1;
-      padding: 14px;
+    .actions .btn {
+      flex: 1 1 auto;
+      padding: 14px 18px;
       border-radius: var(--radius-md);
       border: none;
-      background: var(--accent);
-      color: var(--accent-text);
-      font-size: 15px;
+      font-family: inherit;
+      font-size: 16px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      font-family: inherit;
-      letter-spacing: 0.2px;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
       text-align: center;
       text-decoration: none;
-    }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-primary:active { transform: scale(0.97); }
-
-    .btn-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--bg);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      color: var(--text-primary);
-      transition: background 0.15s, transform 0.1s;
-      text-decoration: none;
+      gap: 8px;
+      min-width: 120px;
     }
-    .btn-icon:hover { background: var(--bg-secondary); }
-    .btn-icon:active { transform: scale(0.95); }
-    .btn-icon svg { width: 20px; height: 20px; }
+    .actions .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--accent-text);
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+    }
+    .btn-whatsapp:hover { background: #1DA851; }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { background: var(--bg-secondary); }
+    .btn svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
 
     /* ── Section Title ── */
     .section-title {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .section-title h2 {
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 600;
       letter-spacing: -0.2px;
     }
     .section-title .link {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-secondary);
       cursor: pointer;
       text-decoration: none;
+      font-weight: 500;
     }
     .section-title .link:hover {
       color: var(--text-primary);
@@ -266,12 +277,12 @@
 
     /* ── Photos Grid ── */
     .photos {
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
     .photo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
     }
     .photo-grid img {
       width: 100%;
@@ -283,42 +294,80 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .photo-grid img:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
       box-shadow: var(--shadow-md);
     }
 
+    /* ── Lightbox Modal ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      object-fit: contain;
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      font-size: 32px;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-weight: 300;
+      transition: transform 0.2s;
+    }
+    .lightbox .close:hover { transform: scale(1.2); }
+
     /* ── Reviews ── */
     .reviews {
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
     .review-card {
       background: var(--bg-secondary);
       border-radius: var(--radius-md);
-      padding: 16px 18px;
-      margin-bottom: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
       border: 1px solid var(--border);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .review-card.hidden {
+      display: none;
     }
     .review-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .review-header .name {
       font-weight: 600;
-      font-size: 15px;
+      font-size: 17px;
     }
     .review-header .date {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-tertiary);
     }
     .source-badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 2px 10px;
+      padding: 2px 12px;
       border-radius: var(--radius-full);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.2px;
       margin-bottom: 6px;
@@ -336,8 +385,8 @@
       color: var(--instagram);
     }
     .source-badge svg {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
     }
 
     .review-stars {
@@ -346,13 +395,13 @@
       margin-bottom: 6px;
     }
     .review-stars svg {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
     }
 
     .review-text {
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 16px;
+      line-height: 1.7;
       color: var(--text-secondary);
     }
     .review-text .highlight {
@@ -364,47 +413,54 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding-top: 10px;
-      margin-top: 10px;
+      padding-top: 12px;
+      margin-top: 12px;
       border-top: 1px solid var(--border);
     }
     .proof-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-tertiary);
       background: var(--bg);
-      padding: 4px 12px 4px 8px;
+      padding: 4px 14px 4px 10px;
       border-radius: var(--radius-full);
       border: 1px solid var(--border);
     }
     .proof-badge svg {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       color: #22c55e;
     }
 
     /* ── Source filter ── */
     .source-filter {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     .source-filter .filter-label {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-secondary);
       margin-right: 4px;
+      font-weight: 500;
     }
     .source-filter .filter-chip {
-      font-size: 12px;
-      padding: 4px 12px;
+      font-size: 14px;
+      padding: 6px 18px;
       border-radius: var(--radius-full);
       border: 1px solid var(--border);
       background: var(--bg);
       color: var(--text-secondary);
-      cursor: default;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      font-weight: 500;
+    }
+    .source-filter .filter-chip:hover {
+      background: var(--bg-secondary);
+      border-color: var(--text-tertiary);
     }
     .source-filter .filter-chip.active {
       background: var(--accent);
@@ -415,27 +471,68 @@
       color: inherit;
       text-decoration: none;
     }
-    .source-filter .filter-chip a:hover {
-      text-decoration: underline;
+
+    /* ── Modal for "How we verify" ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      animation: fadeInUp 0.3s ease;
+    }
+    .modal-box h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .modal-box p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .modal-box .close-modal {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
     }
 
     /* ── Review Form ── */
     .review-form {
-      padding: 24px;
+      padding: 28px 24px;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       background: var(--bg-secondary);
+      scroll-margin-top: 20px;
     }
     .review-form h2 {
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 600;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       letter-spacing: -0.2px;
     }
     .star-rating {
       display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
+      gap: 10px;
+      margin-bottom: 20px;
       justify-content: center;
     }
     .star-rating button {
@@ -447,8 +544,8 @@
     }
     .star-rating button:active { transform: scale(0.9); }
     .star-rating svg {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       transition: fill 0.15s, stroke 0.15s;
     }
     .star-rating button.inactive svg {
@@ -462,15 +559,15 @@
       stroke-width: 1.5;
     }
 
-    .form-group { margin-bottom: 12px; }
+    .form-group { margin-bottom: 16px; }
     .form-input, .form-textarea {
       width: 100%;
-      padding: 14px;
+      padding: 14px 16px;
       border-radius: var(--radius-md);
       border: 1px solid var(--border);
       background: var(--bg);
       color: var(--text-primary);
-      font-size: 15px;
+      font-size: 16px;
       font-family: inherit;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
@@ -480,18 +577,18 @@
       box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
     }
     .form-textarea {
-      min-height: 80px;
+      min-height: 100px;
       resize: vertical;
     }
     .form-submit {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       border-radius: var(--radius-md);
       border: none;
       background: var(--accent);
       color: var(--accent-text);
-      font-size: 15px;
-      font-weight: 500;
+      font-size: 17px;
+      font-weight: 600;
       cursor: pointer;
       transition: background 0.2s;
       font-family: inherit;
@@ -501,43 +598,48 @@
     .form-success {
       display: none;
       text-align: center;
-      padding: 24px;
+      padding: 30px 20px;
     }
     .form-success svg {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 12px;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 16px;
       color: var(--text-primary);
     }
     .form-success h3 {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .form-success p {
-      font-size: 14px;
+      font-size: 16px;
       color: var(--text-secondary);
     }
 
     /* ── Responsive ── */
     @media (min-width: 640px) {
-      .container { padding: 24px 20px 48px; }
-      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .container { padding: 32px 24px 56px; }
+      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+      .actions .btn { min-width: 140px; }
     }
 
     @media (min-width: 768px) {
-      .container { padding: 32px 32px 56px; max-width: 680px; }
-      .header-info h1 { font-size: 26px; }
-      .stat-card .num { font-size: 26px; }
-      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+      .container { padding: 40px 32px 64px; max-width: 720px; }
+      .header-info h1 { font-size: 30px; }
+      .stat-card .num { font-size: 30px; }
+      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+      .review-form { padding: 36px 32px; }
     }
 
     @media (min-width: 1024px) {
-      .container { max-width: 800px; padding: 40px 40px 64px; }
-      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+      .container { max-width: 840px; padding: 48px 40px 72px; }
     }
+
+    /* helper for dark mode lightbox close */
+    .lightbox .close,
+    .modal-box .close-modal { color: var(--text-primary); }
+    .lightbox .close { color: #fff; }
   </style>
-  <base target="_blank" />
 </head>
 <body>
 
@@ -546,7 +648,7 @@
     <!-- ═══ HEADER ═══ -->
     <header class="header animate-in">
       <div class="avatar">
-        <img src="/paramjit/images/profile.jpg" alt="Paramjit Singh Pannu" />
+        <img src="/paramjit/images/profle.jpg" alt="Paramjit Singh Pannu" />
       </div>
       <div class="header-info">
         <h1>Paramjit Singh Pannu</h1>
@@ -597,25 +699,29 @@
       </div>
     </div>
 
-    <!-- ═══ ACTIONS ═══ -->
+    <!-- ═══ ACTIONS (Call, WhatsApp, Review) ═══ -->
     <div class="actions animate-in delay-3">
-      <a href="tel:+919650114113" class="btn-primary">📞 Write a review</a>
-      <a href="https://www.instagram.com/paramjit__pannu/" class="btn-icon" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
-        </svg>
+      <a href="tel:+919650114113" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call Now
+      </a>
+      <a href="https://wa.me/919650114113?text=Hi%20Paramjit%2C%20I%20need%20a%20transport%20service." class="btn btn-whatsapp" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.032 21.965c-1.872 0-3.696-.48-5.328-1.392l-4.704 1.536 1.536-4.608c-1.008-1.68-1.536-3.6-1.536-5.52 0-6.144 4.992-11.136 11.136-11.136s11.136 4.992 11.136 11.136-4.992 11.136-11.136 11.136z"/></svg>
+        WhatsApp
+      </a>
+      <a href="#review-form" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Write a Review
       </a>
     </div>
 
-    <!-- ═══ VEHICLE & PHOTOS ═══ -->
+    <!-- ═══ VEHICLE PHOTOS ═══ -->
     <section class="photos animate-in delay-4">
       <div class="section-title">
         <h2>🚗 Vehicle &amp; photos</h2>
-        <span class="link">View all</span>
+        <a href="#photo-grid" class="link">View all</a>
       </div>
-      <div class="photo-grid">
+      <div class="photo-grid" id="photo-grid">
         <img src="/paramjit/images/vehicle-1.jpg" alt="Vehicle front view" loading="lazy" />
         <img src="/paramjit/images/vehicle-2.jpg" alt="Vehicle side view" loading="lazy" />
         <img src="/paramjit/images/vehicle-3.jpg" alt="Loading goods" loading="lazy" />
@@ -629,21 +735,22 @@
     <section class="reviews animate-in delay-5">
       <div class="section-title">
         <h2>⭐ Customer reviews</h2>
-        <span class="link">How we verify</span>
+        <span class="link" id="howVerifyLink">How we verify</span>
       </div>
 
       <!-- Source filter -->
       <div class="source-filter">
         <span class="filter-label">All sources:</span>
-        <span class="filter-chip active">Google</span>
-        <span class="filter-chip">WhatsApp</span>
-        <span class="filter-chip">
+        <span class="filter-chip active" data-filter="all">All</span>
+        <span class="filter-chip" data-filter="google">Google</span>
+        <span class="filter-chip" data-filter="whatsapp">WhatsApp</span>
+        <span class="filter-chip" data-filter="instagram">
           <a href="https://www.instagram.com/paramjit__pannu/">Instagram</a>
         </span>
       </div>
 
       <!-- Review 1 - Google -->
-      <div class="review-card">
+      <div class="review-card" data-source="google">
         <div class="review-header">
           <span class="name">Amit Sharma</span>
           <span class="date">2 days ago · Delhi, India</span>
@@ -660,7 +767,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <div class="review-text">
-          Very professional and punctual. The vehicle was clean and Rajesh bhaiya helped with loading too. Highly recommended for Delhi–Jaipur route.
+          Very professional and punctual. The vehicle was clean and Param bhaiya helped with loading too. Highly recommended for Delhi–Jaipur route.
         </div>
         <div class="review-proof">
           <span class="proof-badge">
@@ -671,7 +778,7 @@
       </div>
 
       <!-- Review 2 - WhatsApp -->
-      <div class="review-card">
+      <div class="review-card" data-source="whatsapp">
         <div class="review-header">
           <span class="name">Priya Verma</span>
           <span class="date">1 week ago</span>
@@ -688,7 +795,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <div class="review-text">
-          Safe driving and polite behavior. Fair pricing compared to others. Will book again for factory goods transport. Thank you Rajesh ji!
+          Safe driving and polite behavior. Fair pricing compared to others. Will book again for factory goods transport. Thank you Param ji!
         </div>
         <div class="review-proof">
           <span class="proof-badge">
@@ -699,7 +806,7 @@
       </div>
 
       <!-- Review 3 - Google -->
-      <div class="review-card">
+      <div class="review-card" data-source="google">
         <div class="review-header">
           <span class="name">Ramesh Khanna</span>
           <span class="date">3 weeks ago · Gurgaon</span>
@@ -726,8 +833,8 @@
         </div>
       </div>
 
-      <!-- Review 4 - Instagram (linked) -->
-      <div class="review-card">
+      <!-- Review 4 - Instagram -->
+      <div class="review-card" data-source="instagram">
         <div class="review-header">
           <span class="name">Sonu Kumar</span>
           <span class="date">2 weeks ago · @sonu_transport</span>
@@ -744,7 +851,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <div class="review-text">
-          Booked Rajesh bhaiya for my shop delivery. Super reliable, reached before time. Vehicle condition was excellent.
+          Booked Param bhaiya for my shop delivery. Super reliable, reached before time. Vehicle condition was excellent.
           <span class="highlight">Follow him for transport updates!</span>
         </div>
         <div class="review-proof">
@@ -757,9 +864,9 @@
     </section>
 
     <!-- ═══ REVIEW FORM ═══ -->
-    <section class="review-form animate-in delay-6">
+    <section class="review-form animate-in delay-6" id="review-form">
       <h2>✍️ Add your review</h2>
-      <form id="reviewForm">
+      <form id="reviewForm" action="#" method="POST">
         <div class="star-rating" id="starRating">
           <button type="button" class="inactive" data-value="1">
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -794,6 +901,26 @@
 
   </div>
 
+  <!-- ═══ LIGHTBOX MODAL ═══ -->
+  <div class="lightbox" id="lightbox">
+    <button class="close" id="lightboxClose">&times;</button>
+    <img id="lightboxImg" src="" alt="Enlarged view" />
+  </div>
+
+  <!-- ═══ "HOW WE VERIFY" MODAL ═══ -->
+  <div class="modal-overlay" id="verifyModal">
+    <div class="modal-box">
+      <button class="close-modal" id="modalClose">&times;</button>
+      <h3>🔍 How we verify reviews</h3>
+      <p>
+        All reviews displayed here are collected from real customers.
+        Each review includes a <strong>proof badge</strong> — a screenshot, message,
+        or public post from the original source (Google, WhatsApp, or Instagram).
+        We manually check every submission to ensure authenticity.
+      </p>
+    </div>
+  </div>
+
   <script>
     // ── Star rating ──
     const stars = document.querySelectorAll('#starRating button');
@@ -826,6 +953,83 @@
       e.preventDefault();
       document.getElementById('reviewForm').style.display = 'none';
       document.getElementById('formSuccess').style.display = 'block';
+      // Optional: send data to Formspree or other service
+      // Example: you can add action="https://formspree.io/your-email" to the form
+    });
+
+    // ── Lightbox ──
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLightbox = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.photo-grid img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightboxFn() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    closeLightbox.addEventListener('click', closeLightboxFn);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightboxFn();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightboxFn();
+    });
+
+    // ── Review Filter ──
+    const filterChips = document.querySelectorAll('.filter-chip');
+    const reviewCards = document.querySelectorAll('.review-card');
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        // update active class
+        filterChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        const filter = chip.dataset.filter;
+        reviewCards.forEach(card => {
+          if (filter === 'all' || card.dataset.source === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // ── "How we verify" modal ──
+    const verifyModal = document.getElementById('verifyModal');
+    const howVerifyLink = document.getElementById('howVerifyLink');
+    const modalClose = document.getElementById('modalClose');
+
+    howVerifyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      verifyModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeModal() {
+      verifyModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    modalClose.addEventListener('click', closeModal);
+    verifyModal.addEventListener('click', (e) => {
+      if (e.target === verifyModal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ── "View all" scroll to photo grid ──
+    document.querySelector('.section-title .link[href="#photo-grid"]')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('photo-grid').scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 
