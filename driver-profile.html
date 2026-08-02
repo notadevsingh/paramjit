@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Rajesh Kumar — Commercial Vehicle Driver</title>
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f7f7f8;
+      --bg-tertiary: #f0f0f2;
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --text-tertiary: #888888;
+      --text-quaternary: #aaaaaa;
+      --border: #e5e5e7;
+      --accent: #111111;
+      --accent-text: #ffffff;
+      --star: #111111;
+      --star-empty: #cccccc;
+      --radius-sm: 8px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f11;
+        --bg-secondary: #1a1a1e;
+        --bg-tertiary: #25252a;
+        --text-primary: #f0f0f0;
+        --text-secondary: #a0a0a8;
+        --text-tertiary: #707078;
+        --text-quaternary: #505058;
+        --border: #2a2a30;
+        --accent: #f0f0f0;
+        --accent-text: #111111;
+        --star: #f0f0f0;
+        --star-empty: #3a3a42;
+      }
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Layout ─── */
+    .container { max-width: 480px; margin: 0 auto; padding: 20px 16px 40px; }
+
+    /* ─── Header ─── */
+    .header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .avatar {
+      width: 80px; height: 80px; border-radius: var(--radius-full);
+      background: var(--bg-tertiary);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden; border: 1px solid var(--border);
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar svg { color: var(--text-quaternary); }
+    .header-info { flex: 1; min-width: 0; }
+    .header-info h1 { font-size: 22px; font-weight: 600; line-height: 1.2; margin-bottom: 4px; letter-spacing: -0.2px; }
+    .header-info .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; }
+    .rating-row { display: flex; align-items: center; gap: 6px; font-size: 15px; }
+    .rating-row .score { font-weight: 600; }
+    .rating-row .count { color: var(--text-tertiary); }
+    .stars-inline { display: flex; gap: 2px; }
+    .stars-inline svg { width: 16px; height: 16px; }
+
+    /* ─── Stats ─── */
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+    .stat-card {
+      text-align: center; padding: 16px 8px;
+      border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: var(--bg); transition: transform 0.15s ease;
+    }
+    .stat-card:active { transform: scale(0.97); }
+    .stat-card .num { font-size: 22px; font-weight: 600; margin-bottom: 2px; letter-spacing: -0.3px; }
+    .stat-card .label { font-size: 12px; color: var(--text-secondary); }
+
+    /* ─── Actions ─── */
+    .actions { display: flex; gap: 10px; margin-bottom: 28px; }
+    .btn-primary {
+      flex: 1; padding: 14px; border-radius: var(--radius-md);
+      border: none; background: var(--accent); color: var(--accent-text);
+      font-size: 15px; font-weight: 500; cursor: pointer;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+      font-family: inherit; letter-spacing: 0.2px;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-primary:active { transform: scale(0.97); }
+    .btn-icon {
+      width: 50px; height: 50px; border-radius: var(--radius-md);
+      border: 1px solid var(--border); background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--text-primary);
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .btn-icon:hover { background: var(--bg-secondary); }
+    .btn-icon:active { transform: scale(0.95); }
+    .btn-icon svg { width: 20px; height: 20px; }
+
+    /* ─── Section Title ─── */
+    .section-title {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .section-title h2 { font-size: 17px; font-weight: 600; letter-spacing: -0.2px; }
+    .section-title .link { font-size: 13px; color: var(--text-secondary); cursor: pointer; }
+    .section-title .link:hover { color: var(--text-primary); text-decoration: underline; }
+
+    /* ─── Photos ─── */
+    .photos { margin-bottom: 28px; }
+    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .photo-item {
+      aspect-ratio: 1; border-radius: var(--radius-md);
+      background: var(--bg-tertiary); overflow: hidden;
+      border: 1px solid var(--border); cursor: pointer;
+      position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .photo-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .photo-item img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-item .placeholder {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      color: var(--text-quaternary);
+    }
+    .photo-item .placeholder svg { width: 28px; height: 28px; }
+
+    /* ─── Reviews ─── */
+    .reviews { margin-bottom: 28px; }
+    .review-card {
+      padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border);
+      margin-bottom: 12px; background: var(--bg);
+      transition: box-shadow 0.2s ease;
+    }
+    .review-card:hover { box-shadow: var(--shadow); }
+    .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .reviewer { display: flex; align-items: center; gap: 10px; }
+    .reviewer-avatar {
+      width: 36px; height: 36px; border-radius: var(--radius-full);
+      background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; color: var(--text-secondary); flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .reviewer-name { font-size: 14px; font-weight: 500; }
+    .reviewer-date { font-size: 12px; color: var(--text-tertiary); }
+    .review-stars { display: flex; gap: 2px; }
+    .review-stars svg { width: 14px; height: 14px; }
+    .review-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .review-text .highlight { color: var(--text-primary); font-weight: 500; }
+
+    /* ─── Review Form ─── */
+    .review-form {
+      padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+    .review-form h2 { font-size: 17px; font-weight: 600; margin-bottom: 18px; letter-spacing: -0.2px; }
+
+    .star-rating {
+      display: flex; gap: 8px; margin-bottom: 18px; justify-content: center;
+    }
+    .star-rating button {
+      background: none; border: none; padding: 0; cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    .star-rating button:active { transform: scale(0.9); }
+    .star-rating svg { width: 32px; height: 32px; transition: fill 0.15s ease, stroke 0.15s ease; }
+    .star-rating button.inactive svg { fill: none; stroke: var(--star-empty); stroke-width: 1.5; }
+    .star-rating button.active svg { fill: var(--star); stroke: var(--star); stroke-width: 1.5; }
+
+    .form-group { margin-bottom: 12px; }
+    .form-input, .form-textarea {
+      width: 100%; padding: 14px; border-radius: var(--radius-md);
+      border: 1px solid var(--border); background: var(--bg);
+      color: var(--text-primary); font-size: 15px; font-family: inherit;
+      outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--text-primary);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+    }
+    .form-textarea { min-height: 100px; resize: vertical; line-height: 1.5; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-quaternary); }
+
+    .btn-submit {
+      width: 100%; padding: 14px; border-radius: var(--radius-md);
+      border: none; background: var(--accent); color: var(--accent-text);
+      font-size: 15px; font-weight: 500; cursor: pointer;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+      font-family: inherit; margin-top: 4px;
+    }
+    .btn-submit:hover { opacity: 0.85; }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .form-success {
+      display: none; text-align: center; padding: 24px;
+    }
+    .form-success svg { width: 48px; height: 48px; margin-bottom: 12px; color: var(--text-primary); }
+    .form-success h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .form-success p { font-size: 14px; color: var(--text-secondary); }
+
+    /* ─── Footer ─── */
+    .footer {
+      text-align: center; padding-top: 32px;
+      font-size: 12px; color: var(--text-quaternary);
+    }
+    .footer a { color: var(--text-tertiary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ─── Lightbox ─── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+      padding: 20px; backdrop-filter: blur(4px);
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 90vh; border-radius: var(--radius-md); }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 40px; height: 40px; border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.15); border: none; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 20px; backdrop-filter: blur(8px);
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-in { animation: fadeInUp 0.4s ease both; }
+    .delay-1 { animation-delay: 0.05s; }
+    .delay-2 { animation-delay: 0.1s; }
+    .delay-3 { animation-delay: 0.15s; }
+    .delay-4 { animation-delay: 0.2s; }
+    .delay-5 { animation-delay: 0.25s; }
+
+    /* ─── Responsive tweaks ─── */
+    @media (min-width: 768px) {
+      .container { padding: 32px 24px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="header animate-in">
+      <div class="avatar">
+        <!-- Replace src with your actual photo URL: <img src="your-photo.jpg" alt="Profile"> -->
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div class="header-info">
+        <h1>Rajesh Kumar</h1>
+        <div class="subtitle">Commercial Vehicle Driver · Delhi NCR</div>
+        <div class="rating-row">
+          <div class="stars-inline" aria-label="4.9 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star-empty)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <span class="score">4.9</span>
+          <span class="count">· 127 reviews</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══ STATS ═══ -->
+    <div class="stats animate-in delay-1">
+      <div class="stat-card">
+        <div class="num">8+</div>
+        <div class="label">Years exp.</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">3.2k</div>
+        <div class="label">Trips done</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">100%</div>
+        <div class="label">Verified</div>
+      </div>
+    </div>
+
+    <!-- ═══ ACTIONS ═══ -->
+    <div class="actions animate-in delay-2">
+      <button class="btn-primary" onclick="document.getElementById('reviewSection').scrollIntoView({behavior:'smooth'})">
+        Write a review
+      </button>
+      <a class="btn-icon" href="tel:+919876543210" title="Call now" aria-label="Call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.56 12.56 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.56 12.56 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </a>
+      <button class="btn-icon" onclick="shareProfile()" title="Share profile" aria-label="Share">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"/>
+          <circle cx="6" cy="12" r="3"/>
+          <circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- ═══ PHOTOS ═══ -->
+    <section class="photos animate-in delay-3">
+      <div class="section-title">
+        <h2>Vehicle & photos</h2>
+        <span class="link" onclick="alert('Add more photos by editing the HTML photo-grid section')">View all</span>
+      </div>
+      <div class="photo-grid">
+        <!-- Photo 1 -->
+        <div class="photo-item" onclick="openLightbox(this)">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+          <!-- Uncomment and replace src when you have images:
+          <img src="vehicle-1.jpg" alt="Vehicle front view" loading="lazy">
+          -->
+        </div>
+        <!-- Photo 2 -->
+        <div class="photo-item" onclick="openLightbox(this)">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Photo 3 -->
+        <div class="photo-item" onclick="openLightbox(this)">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Photo 4 -->
+        <div class="photo-item" onclick="openLightbox(this)">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Photo 5 -->
+        <div class="photo-item" onclick="openLightbox(this)">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Photo 6 -->
+        <div class="photo-item" onclick="openLightbox(this)">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ REVIEWS ═══ -->
+    <section class="reviews animate-in delay-4">
+      <div class="section-title">
+        <h2>Recent reviews</h2>
+        <span class="link">See all 127</span>
+      </div>
+
+      <!-- Review 1 -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer">
+            <div class="reviewer-avatar">AS</div>
+            <div>
+              <div class="reviewer-name">Amit Sharma</div>
+              <div class="reviewer-date">2 days ago</div>
+            </div>
+          </div>
+          <div class="review-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <div class="review-text">
+          Very professional and punctual. The vehicle was clean and Rajesh bhaiya helped with loading too. <span class="highlight">Highly recommended</span> for Delhi-Jaipur route.
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer">
+            <div class="reviewer-avatar">PV</div>
+            <div>
+              <div class="reviewer-name">Priya Verma</div>
+              <div class="reviewer-date">1 week ago</div>
+            </div>
+          </div>
+          <div class="review-stars" aria-label="4 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star-empty)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <div class="review-text">
+          Safe driving and polite behavior. Fair pricing compared to others. Will book again for <span class="highlight">factory goods transport</span>.
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer">
+            <div class="reviewer-avatar">RK</div>
+            <div>
+              <div class="reviewer-name">Ramesh Khanna</div>
+              <div class="reviewer-date">3 weeks ago</div>
+            </div>
+          </div>
+          <div class="review-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <div class="review-text">
+          Used his service for shifting our warehouse goods from Gurgaon to Noida. On time, no damage, very cooperative. <span class="highlight">Best driver in the area.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ REVIEW FORM ═══ -->
+    <section id="reviewSection" class="review-form animate-in delay-5">
+      <h2>Add your review</h2>
+
+      <div class="star-rating" id="starRating" role="radiogroup" aria-label="Rate your experience">
+        <button type="button" class="inactive" data-value="1" onclick="setRating(1)" aria-label="1 star">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+        <button type="button" class="inactive" data-value="2" onclick="setRating(2)" aria-label="2 stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+        <button type="button" class="inactive" data-value="3" onclick="setRating(3)" aria-label="3 stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+        <button type="button" class="inactive" data-value="4" onclick="setRating(4)" aria-label="4 stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+        <button type="button" class="inactive" data-value="5" onclick="setRating(5)" aria-label="5 stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+      </div>
+
+      <form id="reviewForm" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <input type="text" class="form-input" id="reviewerName" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="reviewText" placeholder="Share your experience..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">Submit review</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <h3>Thank you!</h3>
+        <p>Your review has been submitted. It will appear after verification.</p>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer animate-in delay-5">
+      <p>Profile powered by <a href="#">DriverPage</a> · Updated Aug 2026</p>
+    </footer>
+
+  </div>
+
+  <!-- ═══ LIGHTBOX ═══ -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
+    <img id="lightboxImg" src="" alt="Enlarged photo">
+  </div>
+
+  <!-- ═══ JAVASCRIPT ═══ -->
+  <script>
+    // ─── Star Rating ───
+    let currentRating = 0;
+    const stars = document.querySelectorAll('#starRating button');
+
+    function setRating(n) {
+      currentRating = n;
+      stars.forEach((btn, i) => {
+        btn.classList.toggle('active', i < n);
+        btn.classList.toggle('inactive', i >= n);
+      });
+    }
+
+    // Hover preview
+    stars.forEach((btn, i) => {
+      btn.addEventListener('mouseenter', () => {
+        stars.forEach((b, j) => {
+          b.classList.toggle('active', j <= i);
+          b.classList.toggle('inactive', j > i);
+        });
+      });
+    });
+    document.getElementById('starRating').addEventListener('mouseleave', () => {
+      stars.forEach((b, j) => {
+        b.classList.toggle('active', j < currentRating);
+        b.classList.toggle('inactive', j >= currentRating);
+      });
+    });
+
+    // ─── Form Submit ───
+    function handleSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reviewerName').value.trim();
+      const text = document.getElementById('reviewText').value.trim();
+      const btn = document.getElementById('submitBtn');
+
+      if (currentRating === 0) {
+        alert('Please select a star rating first.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      // Simulate submission (replace with real backend or Formspree URL)
+      setTimeout(() => {
+        document.getElementById('reviewForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+        document.getElementById('formSuccess').style.animation = 'fadeInUp 0.4s ease both';
+      }, 800);
+    }
+
+    // ─── Share ───
+    async function shareProfile() {
+      const shareData = {
+        title: 'Rajesh Kumar — Commercial Vehicle Driver',
+        text: 'Check out this driver profile. Highly rated and reliable!',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch (err) { /* cancelled */ }
+      } else {
+        // Fallback: copy link
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          alert('Profile link copied to clipboard!');
+        } catch {
+          prompt('Copy this link:', window.location.href);
+        }
+      }
+    }
+
+    // ─── Lightbox ───
+    function openLightbox(el) {
+      const img = el.querySelector('img');
+      if (!img) return;
+      document.getElementById('lightboxImg').src = img.src;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+      if (e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+
+</body>
+</html>
