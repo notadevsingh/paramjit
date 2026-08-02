@@ -61,7 +61,7 @@
       background: var(--bg);
       color: var(--text-primary);
       line-height: 1.6;
-      font-size: 18px; /* base font larger */
+      font-size: 18px;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -203,6 +203,42 @@
       color: var(--text-secondary);
     }
 
+    /* ── QR Code Section ── */
+    .qr-section {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      margin-bottom: 28px;
+      border: 1px solid var(--border);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .qr-section h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .qr-section .qr-sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+    .qr-section img {
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-sm);
+      background: #fff;
+      padding: 8px;
+      box-shadow: var(--shadow-md);
+    }
+    .qr-section .qr-url {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      margin-top: 12px;
+      word-break: break-all;
+    }
+
     /* ── Actions ── */
     .actions {
       display: flex;
@@ -269,68 +305,156 @@
       cursor: pointer;
       text-decoration: none;
       font-weight: 500;
+      transition: color 0.2s;
     }
     .section-title .link:hover {
       color: var(--text-primary);
       text-decoration: underline;
     }
 
-    /* ── Photos Grid ── */
-    .photos {
-      margin-bottom: 32px;
-    }
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 12px;
-    }
-    .photo-grid img {
+    /* ── CAROUSEL (Inline) ── */
+    .carousel-wrapper {
+      position: relative;
       width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
+      overflow: hidden;
       border: 1px solid var(--border);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--bg-tertiary);
+      aspect-ratio: 16 / 10;
+      touch-action: pan-y;
+      box-shadow: var(--shadow);
     }
-    .photo-grid img:hover {
-      transform: scale(1.03);
-      box-shadow: var(--shadow-md);
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-tertiary);
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
-    /* ── Lightbox Modal ── */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.1s;
+      z-index: 10;
+      padding: 0;
+      line-height: 1;
+    }
+    .carousel-btn:hover { background: rgba(0,0,0,0.7); }
+    .carousel-btn:active { transform: translateY(-50%) scale(0.92); }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+    }
+    .carousel-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      padding: 0;
+    }
+    .carousel-dots .dot.active {
+      background: #fff;
+      transform: scale(1.2);
+    }
+
+    /* ── LIGHTBOX CAROUSEL (Modal) ── */
     .lightbox {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       padding: 20px;
     }
     .lightbox.active { display: flex; }
-    .lightbox img {
-      max-width: 100%;
-      max-height: 90vh;
-      border-radius: var(--radius-md);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      object-fit: contain;
-    }
-    .lightbox .close {
+    .lightbox .close-lightbox {
       position: absolute;
-      top: 24px;
-      right: 32px;
-      font-size: 32px;
+      top: 20px;
+      right: 28px;
+      font-size: 36px;
       color: #fff;
       cursor: pointer;
       background: none;
       border: none;
       font-weight: 300;
       transition: transform 0.2s;
+      z-index: 2100;
     }
-    .lightbox .close:hover { transform: scale(1.2); }
+    .lightbox .close-lightbox:hover { transform: scale(1.2); }
+    .lightbox .carousel-wrapper {
+      max-width: 90vw;
+      max-height: 85vh;
+      aspect-ratio: 16 / 10;
+      border: none;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000;
+    }
+    .lightbox .carousel-btn {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      width: 48px;
+      height: 48px;
+    }
+    .lightbox .carousel-btn:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .carousel-dots .dot {
+      background: rgba(255,255,255,0.3);
+    }
+    .lightbox .carousel-dots .dot.active {
+      background: #fff;
+    }
+    .lightbox .carousel-track {
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
     /* ── Reviews ── */
     .reviews {
@@ -594,6 +718,10 @@
       font-family: inherit;
     }
     .form-submit:hover { background: var(--accent-hover); }
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
 
     .form-success {
       display: none;
@@ -619,16 +747,18 @@
     /* ── Responsive ── */
     @media (min-width: 640px) {
       .container { padding: 32px 24px 56px; }
-      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
       .actions .btn { min-width: 140px; }
+      .qr-section img { max-width: 220px; }
+      .carousel-wrapper { aspect-ratio: 16 / 9; }
     }
 
     @media (min-width: 768px) {
       .container { padding: 40px 32px 64px; max-width: 720px; }
       .header-info h1 { font-size: 30px; }
       .stat-card .num { font-size: 30px; }
-      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
       .review-form { padding: 36px 32px; }
+      .qr-section img { max-width: 250px; }
+      .carousel-btn { width: 48px; height: 48px; font-size: 26px; }
     }
 
     @media (min-width: 1024px) {
@@ -636,9 +766,7 @@
     }
 
     /* helper for dark mode lightbox close */
-    .lightbox .close,
-    .modal-box .close-modal { color: var(--text-primary); }
-    .lightbox .close { color: #fff; }
+    .lightbox .close-lightbox { color: #fff; }
   </style>
 </head>
 <body>
@@ -699,6 +827,20 @@
       </div>
     </div>
 
+    <!-- ═══ QR CODE SECTION ═══ -->
+    <section class="qr-section animate-in delay-2">
+      <h3>📱 Scan to open</h3>
+      <div class="qr-sub">Point your camera at the code</div>
+      <img 
+        src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://notadevsingh.github.io/paramjit/" 
+        alt="QR code for Paramjit's page" 
+        width="250" 
+        height="250"
+        loading="lazy"
+      />
+      <div class="qr-url">notadevsingh.github.io/paramjit/</div>
+    </section>
+
     <!-- ═══ ACTIONS (Call, WhatsApp, Review) ═══ -->
     <div class="actions animate-in delay-3">
       <a href="tel:+919650114113" class="btn btn-primary">
@@ -715,19 +857,26 @@
       </a>
     </div>
 
-    <!-- ═══ VEHICLE PHOTOS ═══ -->
-    <section class="photos animate-in delay-4">
+    <!-- ═══ VEHICLE CAROUSEL ═══ -->
+    <section class="photos animate-in delay-4" id="carousel-section">
       <div class="section-title">
         <h2>🚗 Vehicle &amp; photos</h2>
-        <a href="#photo-grid" class="link">View all</a>
+        <span class="link" id="viewAllBtn">View all</span>
       </div>
-      <div class="photo-grid" id="photo-grid">
-        <img src="/paramjit/images/vehicle-1.jpg" alt="Vehicle front view" loading="lazy" />
-        <img src="/paramjit/images/vehicle-2.jpg" alt="Vehicle side view" loading="lazy" />
-        <img src="/paramjit/images/vehicle-3.jpg" alt="Loading goods" loading="lazy" />
-        <img src="/paramjit/images/vehicle-4.jpg" alt="Interior cabin" loading="lazy" />
-        <img src="/paramjit/images/vehicle-5.jpg" alt="Delivery completed" loading="lazy" />
-        <img src="/paramjit/images/vehicle-6.jpg" alt="Vehicle rear view" loading="lazy" />
+
+      <!-- Inline Carousel -->
+      <div class="carousel-wrapper" id="mainCarousel">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide"><img src="/paramjit/images/vehicle-1.jpg" alt="Vehicle front view" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="/paramjit/images/vehicle-2.jpg" alt="Vehicle side view" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="/paramjit/images/vehicle-3.jpg" alt="Loading goods" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="/paramjit/images/vehicle-4.jpg" alt="Interior cabin" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="/paramjit/images/vehicle-5.jpg" alt="Delivery completed" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="/paramjit/images/vehicle-6.jpg" alt="Vehicle rear view" loading="lazy" /></div>
+        </div>
+        <button class="carousel-btn prev" id="prevBtn">‹</button>
+        <button class="carousel-btn next" id="nextBtn">›</button>
+        <div class="carousel-dots" id="carouselDots"></div>
       </div>
     </section>
 
@@ -767,7 +916,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <div class="review-text">
-          Very professional and punctual. The vehicle was clean and Param bhaiya helped with loading too. Highly recommended for Delhi–Jaipur route.
+          Very professional and punctual. The vehicle was clean and Rajesh bhaiya helped with loading too. Highly recommended for Delhi–Jaipur route.
         </div>
         <div class="review-proof">
           <span class="proof-badge">
@@ -795,7 +944,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <div class="review-text">
-          Safe driving and polite behavior. Fair pricing compared to others. Will book again for factory goods transport. Thank you Param ji!
+          Safe driving and polite behavior. Fair pricing compared to others. Will book again for factory goods transport. Thank you Rajesh ji!
         </div>
         <div class="review-proof">
           <span class="proof-badge">
@@ -851,7 +1000,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <div class="review-text">
-          Booked Param bhaiya for my shop delivery. Super reliable, reached before time. Vehicle condition was excellent.
+          Booked Rajesh bhaiya for my shop delivery. Super reliable, reached before time. Vehicle condition was excellent.
           <span class="highlight">Follow him for transport updates!</span>
         </div>
         <div class="review-proof">
@@ -866,7 +1015,11 @@
     <!-- ═══ REVIEW FORM ═══ -->
     <section class="review-form animate-in delay-6" id="review-form">
       <h2>✍️ Add your review</h2>
-      <form id="reviewForm" action="#" method="POST">
+      <!-- 
+        ✅ Formspree endpoint configured.
+        ✅ AJAX submission keeps user on this page.
+      -->
+      <form id="reviewForm" novalidate>
         <div class="star-rating" id="starRating">
           <button type="button" class="inactive" data-value="1">
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -883,28 +1036,40 @@
           <button type="button" class="inactive" data-value="5">
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </button>
+          <!-- Hidden field to capture rating -->
+          <input type="hidden" name="rating" id="ratingInput" value="0" />
         </div>
         <div class="form-group">
-          <input type="text" class="form-input" placeholder="Your name" required />
+          <input type="text" class="form-input" name="name" placeholder="Your name" required />
         </div>
         <div class="form-group">
-          <textarea class="form-textarea" placeholder="Write your review…" required></textarea>
+          <textarea class="form-textarea" name="review" placeholder="Write your review…" required></textarea>
         </div>
-        <button type="submit" class="form-submit">Submit review</button>
+        <input type="hidden" name="_subject" value="New review from Paramjit's site" />
+        <!-- Tell Formspree not to redirect, we handle it via AJAX -->
+        <input type="hidden" name="_ajax" value="true" />
+        <button type="submit" class="form-submit" id="submitBtn">Submit review</button>
       </form>
       <div class="form-success" id="formSuccess">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        <h3>Thank you!</h3>
-        <p>Your review has been submitted. It will appear after verification.</p>
+        <h3>Thank you! 🎉</h3>
+        <p>Your review has been submitted. We'll verify and publish it soon.</p>
       </div>
     </section>
 
   </div>
 
-  <!-- ═══ LIGHTBOX MODAL ═══ -->
-  <div class="lightbox" id="lightbox">
-    <button class="close" id="lightboxClose">&times;</button>
-    <img id="lightboxImg" src="" alt="Enlarged view" />
+  <!-- ═══ LIGHTBOX CAROUSEL (Modal) ═══ -->
+  <div class="lightbox" id="lightboxCarousel">
+    <button class="close-lightbox" id="closeLightbox">&times;</button>
+    <div class="carousel-wrapper" id="lightboxCarouselWrapper">
+      <div class="carousel-track" id="lightboxTrack">
+        <!-- Slides will be cloned from the main carousel -->
+      </div>
+      <button class="carousel-btn prev" id="lightboxPrev">‹</button>
+      <button class="carousel-btn next" id="lightboxNext">›</button>
+      <div class="carousel-dots" id="lightboxDots"></div>
+    </div>
   </div>
 
   <!-- ═══ "HOW WE VERIFY" MODAL ═══ -->
@@ -922,13 +1087,151 @@
   </div>
 
   <script>
-    // ── Star rating ──
-    const stars = document.querySelectorAll('#starRating button');
+    // ──────────────────────────────────────────────
+    // 1. CAROUSEL LOGIC (shared between inline & lightbox)
+    // ──────────────────────────────────────────────
+    function initCarousel(trackId, prevId, nextId, dotsId, autoPlay = true) {
+      const track = document.getElementById(trackId);
+      const slides = track.querySelectorAll('.carousel-slide');
+      const prevBtn = document.getElementById(prevId);
+      const nextBtn = document.getElementById(nextId);
+      const dotsContainer = document.getElementById(dotsId);
+      let currentIndex = 0;
+      let totalSlides = slides.length;
+      let interval = null;
+      let isTransitioning = false;
+
+      // Create dots
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.dataset.index = i;
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+      const dots = dotsContainer.querySelectorAll('.dot');
+
+      function updateCarousel(index) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        currentIndex = index;
+        setTimeout(() => { isTransitioning = false; }, 500);
+      }
+
+      function goToSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        updateCarousel(index);
+        resetAutoPlay();
+      }
+
+      function nextSlide() { goToSlide(currentIndex + 1); }
+      function prevSlide() { goToSlide(currentIndex - 1); }
+
+      function resetAutoPlay() {
+        if (!autoPlay) return;
+        if (interval) clearInterval(interval);
+        interval = setInterval(nextSlide, 4000);
+      }
+
+      // Touch / swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      const wrapper = track.closest('.carousel-wrapper');
+
+      wrapper.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      wrapper.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) nextSlide();
+          else prevSlide();
+        }
+        touchStartX = 0;
+        touchEndX = 0;
+      }, { passive: true });
+
+      // Pause auto-play on hover
+      if (autoPlay) {
+        wrapper.addEventListener('mouseenter', () => {
+          if (interval) clearInterval(interval);
+        });
+        wrapper.addEventListener('mouseleave', resetAutoPlay);
+      }
+
+      // Button listeners
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+
+      // Initial setup
+      updateCarousel(0);
+      if (autoPlay) resetAutoPlay();
+
+      return { goToSlide, nextSlide, prevSlide, currentIndex: () => currentIndex, totalSlides };
+    }
+
+    // ── Init main carousel ──
+    const mainCarousel = initCarousel('carouselTrack', 'prevBtn', 'nextBtn', 'carouselDots', true);
+
+    // ── Lightbox carousel ──
+    const lightbox = document.getElementById('lightboxCarousel');
+    const lightboxTrack = document.getElementById('lightboxTrack');
+    const closeLightboxBtn = document.getElementById('closeLightbox');
+
+    // Clone slides into lightbox
+    const mainSlides = document.querySelectorAll('#carouselTrack .carousel-slide');
+    mainSlides.forEach(slide => {
+      const clone = slide.cloneNode(true);
+      lightboxTrack.appendChild(clone);
+    });
+
+    const lightboxCarousel = initCarousel('lightboxTrack', 'lightboxPrev', 'lightboxNext', 'lightboxDots', false);
+
+    // ── Open / Close Lightbox ──
+    function openLightbox(index) {
+      lightboxCarousel.goToSlide(index);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('viewAllBtn').addEventListener('click', () => {
+      const idx = mainCarousel.currentIndex();
+      openLightbox(idx);
+    });
+
+    closeLightboxBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (lightbox.classList.contains('active')) closeLightbox();
+        if (verifyModal.classList.contains('active')) closeModal();
+      }
+    });
+
+    // ──────────────────────────────────────────────
+    // 2. STAR RATING (with hidden field update)
+    // ──────────────────────────────────────────────
+    const stars = document.querySelectorAll('#starRating button:not([type="hidden"])');
+    const ratingInput = document.getElementById('ratingInput');
     let selected = 0;
 
     stars.forEach((btn, index) => {
       btn.addEventListener('click', () => {
         selected = index + 1;
+        ratingInput.value = selected;
         stars.forEach((b, i) => {
           b.classList.toggle('active', i < selected);
           b.classList.toggle('inactive', i >= selected);
@@ -948,47 +1251,71 @@
       });
     });
 
-    // ── Form submit ──
-    document.getElementById('reviewForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      document.getElementById('reviewForm').style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
-      // Optional: send data to Formspree or other service
-      // Example: you can add action="https://formspree.io/your-email" to the form
+    // ──────────────────────────────────────────────
+    // 3. REVIEW FORM SUBMISSION (AJAX - NO REDIRECT)
+    // ──────────────────────────────────────────────
+    const form = document.getElementById('reviewForm');
+    const successDiv = document.getElementById('formSuccess');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // PREVENT THE DEFAULT REDIRECT
+
+      // Validate rating
+      if (selected === 0) {
+        alert('Please select a star rating before submitting.');
+        return;
+      }
+
+      // Collect form data
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Disable button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+
+      try {
+        const response = await fetch('https://formspree.io/f/mgoggvgw', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          // Success! Show your own success message
+          form.style.display = 'none';
+          successDiv.style.display = 'block';
+          console.log('✅ Review submitted successfully to Formspree');
+        } else {
+          // Formspree returned an error
+          const errorData = await response.json();
+          alert('Something went wrong. Please try again.\n' + (errorData.error || ''));
+        }
+      } catch (error) {
+        // Network error or other issue
+        console.error('❌ Submission error:', error);
+        alert('Network error. Please check your connection and try again.');
+      } finally {
+        // Re-enable button (only if form is still visible)
+        if (form.style.display !== 'none') {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit review';
+        }
+      }
     });
 
-    // ── Lightbox ──
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const closeLightbox = document.getElementById('lightboxClose');
-
-    document.querySelectorAll('.photo-grid img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    function closeLightboxFn() {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    closeLightbox.addEventListener('click', closeLightboxFn);
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightboxFn();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightboxFn();
-    });
-
-    // ── Review Filter ──
+    // ──────────────────────────────────────────────
+    // 4. REVIEW FILTER
+    // ──────────────────────────────────────────────
     const filterChips = document.querySelectorAll('.filter-chip');
     const reviewCards = document.querySelectorAll('.review-card');
 
     filterChips.forEach(chip => {
       chip.addEventListener('click', () => {
-        // update active class
         filterChips.forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
 
@@ -1003,34 +1330,33 @@
       });
     });
 
-    // ── "How we verify" modal ──
+    // ──────────────────────────────────────────────
+    // 5. "HOW WE VERIFY" MODAL
+    // ──────────────────────────────────────────────
     const verifyModal = document.getElementById('verifyModal');
     const howVerifyLink = document.getElementById('howVerifyLink');
     const modalClose = document.getElementById('modalClose');
 
-    howVerifyLink.addEventListener('click', (e) => {
-      e.preventDefault();
+    function openModal() {
       verifyModal.classList.add('active');
       document.body.style.overflow = 'hidden';
-    });
+    }
 
     function closeModal() {
       verifyModal.classList.remove('active');
       document.body.style.overflow = '';
     }
+
+    howVerifyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
     modalClose.addEventListener('click', closeModal);
     verifyModal.addEventListener('click', (e) => {
       if (e.target === verifyModal) closeModal();
     });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
 
-    // ── "View all" scroll to photo grid ──
-    document.querySelector('.section-title .link[href="#photo-grid"]')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('photo-grid').scrollIntoView({ behavior: 'smooth' });
-    });
+    console.log('✅ AJAX form submission enabled — users stay on this page.');
   </script>
 
 </body>
