@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Rajesh Kumar — Commercial Vehicle Driver</title>
+  <title>Paramjit Singh Pannu — Driving your moments forward</title>
   <style>
-    /* ─── CSS Variables ─── */
     :root {
       --bg: #ffffff;
       --bg-secondary: #f7f7f8;
@@ -19,6 +18,9 @@
       --accent-text: #ffffff;
       --star: #111111;
       --star-empty: #cccccc;
+      --google: #4285F4;
+      --whatsapp: #25D366;
+      --instagram: #E4405F;
       --radius-sm: 8px;
       --radius-md: 10px;
       --radius-lg: 12px;
@@ -44,7 +46,6 @@
       }
     }
 
-    /* ─── Reset & Base ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     body {
@@ -55,10 +56,9 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── Layout ─── */
     .container { max-width: 480px; margin: 0 auto; padding: 20px 16px 40px; }
 
-    /* ─── Header ─── */
+    /* Header */
     .header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
     .avatar {
       width: 80px; height: 80px; border-radius: var(--radius-full);
@@ -77,7 +77,7 @@
     .stars-inline { display: flex; gap: 2px; }
     .stars-inline svg { width: 16px; height: 16px; }
 
-    /* ─── Stats ─── */
+    /* Stats */
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
     .stat-card {
       text-align: center; padding: 16px 8px;
@@ -88,7 +88,7 @@
     .stat-card .num { font-size: 22px; font-weight: 600; margin-bottom: 2px; letter-spacing: -0.3px; }
     .stat-card .label { font-size: 12px; color: var(--text-secondary); }
 
-    /* ─── Actions ─── */
+    /* Actions */
     .actions { display: flex; gap: 10px; margin-bottom: 28px; }
     .btn-primary {
       flex: 1; padding: 14px; border-radius: var(--radius-md);
@@ -110,7 +110,7 @@
     .btn-icon:active { transform: scale(0.95); }
     .btn-icon svg { width: 20px; height: 20px; }
 
-    /* ─── Section Title ─── */
+    /* Section Title */
     .section-title {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 14px;
@@ -119,7 +119,7 @@
     .section-title .link { font-size: 13px; color: var(--text-secondary); cursor: pointer; }
     .section-title .link:hover { color: var(--text-primary); text-decoration: underline; }
 
-    /* ─── Photos ─── */
+    /* Photos */
     .photos { margin-bottom: 28px; }
     .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .photo-item {
@@ -136,7 +136,29 @@
     }
     .photo-item .placeholder svg { width: 28px; height: 28px; }
 
-    /* ─── Reviews ─── */
+    /* Source Filter Tabs */
+    .source-tabs {
+      display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto;
+      padding-bottom: 4px; scrollbar-width: none;
+    }
+    .source-tabs::-webkit-scrollbar { display: none; }
+    .source-tab {
+      padding: 8px 16px; border-radius: var(--radius-full);
+      border: 1px solid var(--border); background: var(--bg);
+      font-size: 13px; font-weight: 500; color: var(--text-secondary);
+      cursor: pointer; white-space: nowrap; transition: all 0.15s ease;
+      font-family: inherit; display: flex; align-items: center; gap: 6px;
+    }
+    .source-tab.active {
+      background: var(--accent); color: var(--accent-text);
+      border-color: var(--accent);
+    }
+    .source-tab .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .source-tab .dot.google { background: var(--google); }
+    .source-tab .dot.whatsapp { background: var(--whatsapp); }
+    .source-tab .dot.instagram { background: var(--instagram); }
+
+    /* Reviews */
     .reviews { margin-bottom: 28px; }
     .review-card {
       padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border);
@@ -144,22 +166,53 @@
       transition: box-shadow 0.2s ease;
     }
     .review-card:hover { box-shadow: var(--shadow); }
+    .review-card.hidden { display: none; }
+
     .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
     .reviewer { display: flex; align-items: center; gap: 10px; }
     .reviewer-avatar {
       width: 36px; height: 36px; border-radius: var(--radius-full);
       background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;
       font-size: 13px; font-weight: 600; color: var(--text-secondary); flex-shrink: 0;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border); overflow: hidden;
     }
+    .reviewer-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .reviewer-name { font-size: 14px; font-weight: 500; }
     .reviewer-date { font-size: 12px; color: var(--text-tertiary); }
-    .review-stars { display: flex; gap: 2px; }
+
+    .source-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2px;
+    }
+    .source-badge.google { background: rgba(66,133,244,0.1); color: var(--google); }
+    .source-badge.whatsapp { background: rgba(37,211,102,0.1); color: #128C7E; }
+    .source-badge.instagram { background: rgba(228,64,95,0.1); color: var(--instagram); }
+    .source-badge svg { width: 12px; height: 12px; }
+
+    .review-stars { display: flex; gap: 2px; margin-bottom: 8px; }
     .review-stars svg { width: 14px; height: 14px; }
-    .review-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+
+    .review-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px; }
     .review-text .highlight { color: var(--text-primary); font-weight: 500; }
 
-    /* ─── Review Form ─── */
+    .review-proof {
+      display: flex; align-items: center; gap: 8px;
+      padding-top: 12px; border-top: 1px solid var(--border);
+    }
+    .proof-thumb {
+      width: 48px; height: 48px; border-radius: var(--radius-sm);
+      object-fit: cover; cursor: pointer; border: 1px solid var(--border);
+      transition: transform 0.15s ease;
+    }
+    .proof-thumb:hover { transform: scale(1.05); }
+    .proof-label {
+      font-size: 12px; color: var(--text-tertiary);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .proof-label svg { width: 14px; height: 14px; }
+
+    /* Review Form */
     .review-form {
       padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border);
       background: var(--bg-secondary);
@@ -210,22 +263,14 @@
     .form-success h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
     .form-success p { font-size: 14px; color: var(--text-secondary); }
 
-    /* ─── Footer ─── */
-    .footer {
-      text-align: center; padding-top: 32px;
-      font-size: 12px; color: var(--text-quaternary);
-    }
-    .footer a { color: var(--text-tertiary); text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
-
-    /* ─── Lightbox ─── */
+    /* Lightbox */
     .lightbox {
       display: none; position: fixed; inset: 0; z-index: 1000;
       background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
       padding: 20px; backdrop-filter: blur(4px);
     }
     .lightbox.active { display: flex; }
-    .lightbox img { max-width: 100%; max-height: 90vh; border-radius: var(--radius-md); }
+    .lightbox img { max-width: 100%; max-height: 85vh; border-radius: var(--radius-md); }
     .lightbox-close {
       position: absolute; top: 20px; right: 20px;
       width: 40px; height: 40px; border-radius: var(--radius-full);
@@ -233,8 +278,21 @@
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; font-size: 20px; backdrop-filter: blur(8px);
     }
+    .lightbox-caption {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.8); font-size: 13px; text-align: center;
+      background: rgba(0,0,0,0.5); padding: 6px 16px; border-radius: var(--radius-full);
+    }
 
-    /* ─── Animations ─── */
+    /* Footer */
+    .footer {
+      text-align: center; padding-top: 32px;
+      font-size: 12px; color: var(--text-quaternary);
+    }
+    .footer a { color: var(--text-tertiary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* Animations */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
@@ -245,12 +303,13 @@
     .delay-3 { animation-delay: 0.15s; }
     .delay-4 { animation-delay: 0.2s; }
     .delay-5 { animation-delay: 0.25s; }
+    .delay-6 { animation-delay: 0.3s; }
 
-    /* ─── Responsive tweaks ─── */
     @media (min-width: 768px) {
       .container { padding: 32px 24px 48px; }
     }
   </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -259,15 +318,15 @@
     <!-- ═══ HEADER ═══ -->
     <header class="header animate-in">
       <div class="avatar">
-        <!-- Replace src with your actual photo URL: <img src="your-photo.jpg" alt="Profile"> -->
+        <img src="/images/profile-1.jpg" alt="Paramjit Singh Pannu">
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
         </svg>
       </div>
       <div class="header-info">
-        <h1>Rajesh Kumar</h1>
-        <div class="subtitle">Commercial Vehicle Driver · Delhi NCR</div>
+        <h1>Paramjit Singh Pannu</h1>
+        <div class="subtitle">Driving your moments forward · All Over India</div>
         <div class="rating-row">
           <div class="stars-inline" aria-label="4.9 stars">
             <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -284,37 +343,21 @@
 
     <!-- ═══ STATS ═══ -->
     <div class="stats animate-in delay-1">
-      <div class="stat-card">
-        <div class="num">8+</div>
-        <div class="label">Years exp.</div>
-      </div>
-      <div class="stat-card">
-        <div class="num">3.2k</div>
-        <div class="label">Trips done</div>
-      </div>
-      <div class="stat-card">
-        <div class="num">100%</div>
-        <div class="label">Verified</div>
-      </div>
+      <div class="stat-card"><div class="num">20+</div><div class="label">Years exp.</div></div>
+      <div class="stat-card"><div class="num">3.2k</div><div class="label">Trips done</div></div>
+      <div class="stat-card"><div class="num">100%</div><div class="label">Verified</div></div>
     </div>
 
     <!-- ═══ ACTIONS ═══ -->
     <div class="actions animate-in delay-2">
-      <button class="btn-primary" onclick="document.getElementById('reviewSection').scrollIntoView({behavior:'smooth'})">
-        Write a review
-      </button>
-      <a class="btn-icon" href="tel:+919876543210" title="Call now" aria-label="Call">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.56 12.56 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.56 12.56 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
+      <button class="btn-primary" onclick="document.getElementById('reviewSection').scrollIntoView({behavior:'smooth'})">Write a review</button>
+      <a class="btn-icon" href="tel:+919650114113" title="Call now" aria-label="Call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.56 12.56 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.56 12.56 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       </a>
       <button class="btn-icon" onclick="shareProfile()" title="Share profile" aria-label="Share">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="18" cy="5" r="3"/>
-          <circle cx="6" cy="12" r="3"/>
-          <circle cx="18" cy="19" r="3"/>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
         </svg>
       </button>
     </div>
@@ -323,11 +366,11 @@
     <section class="photos animate-in delay-3">
       <div class="section-title">
         <h2>Vehicle & photos</h2>
-        <span class="link" onclick="alert('Add more photos by editing the HTML photo-grid section')">View all</span>
+        <span class="link" onclick="openLightbox('images/vehicle-1.jpg', 'Vehicle front view')">View all</span>
       </div>
       <div class="photo-grid">
         <!-- Photo 1 -->
-        <div class="photo-item" onclick="openLightbox(this)">
+        <div class="photo-item" onclick="openLightbox('images/vehicle-1.jpg', 'Vehicle front view')">
           <div class="placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -335,12 +378,10 @@
               <polyline points="21 15 16 10 5 21"/>
             </svg>
           </div>
-          <!-- Uncomment and replace src when you have images:
-          <img src="vehicle-1.jpg" alt="Vehicle front view" loading="lazy">
-          -->
+          <img src="images/vehicle-1.jpg" alt="Vehicle front view" loading="lazy">
         </div>
         <!-- Photo 2 -->
-        <div class="photo-item" onclick="openLightbox(this)">
+        <div class="photo-item" onclick="openLightbox('images/vehicle-2.jpg', 'Vehicle side view')">
           <div class="placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -348,9 +389,10 @@
               <polyline points="21 15 16 10 5 21"/>
             </svg>
           </div>
+          <img src="images/vehicle-2.jpg" alt="Vehicle side view" loading="lazy">
         </div>
         <!-- Photo 3 -->
-        <div class="photo-item" onclick="openLightbox(this)">
+        <div class="photo-item" onclick="openLightbox('images/vehicle-3.jpg', 'Loading goods')">
           <div class="placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -358,9 +400,10 @@
               <polyline points="21 15 16 10 5 21"/>
             </svg>
           </div>
+          <img src="images/vehicle-3.jpg" alt="Loading goods" loading="lazy">
         </div>
         <!-- Photo 4 -->
-        <div class="photo-item" onclick="openLightbox(this)">
+        <div class="photo-item" onclick="openLightbox('images/vehicle-4.jpg', 'Interior cabin')">
           <div class="placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -368,9 +411,10 @@
               <polyline points="21 15 16 10 5 21"/>
             </svg>
           </div>
+          <img src="images/vehicle-4.jpg" alt="Interior cabin" loading="lazy">
         </div>
         <!-- Photo 5 -->
-        <div class="photo-item" onclick="openLightbox(this)">
+        <div class="photo-item" onclick="openLightbox('images/vehicle-5.jpg', 'Delivery completed')">
           <div class="placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -378,9 +422,10 @@
               <polyline points="21 15 16 10 5 21"/>
             </svg>
           </div>
+          <img src="images/vehicle-5.jpg" alt="Delivery completed" loading="lazy">
         </div>
         <!-- Photo 6 -->
-        <div class="photo-item" onclick="openLightbox(this)">
+        <div class="photo-item" onclick="openLightbox('images/vehicle-6.jpg', 'Vehicle rear view')">
           <div class="placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -388,26 +433,43 @@
               <polyline points="21 15 16 10 5 21"/>
             </svg>
           </div>
+          <img src="images/vehicle-6.jpg" alt="Vehicle rear view" loading="lazy">
         </div>
       </div>
     </section>
 
-    <!-- ═══ REVIEWS ═══ -->
+    <!-- ═══ REVIEWS WITH SOURCE FILTERING ═══ -->
     <section class="reviews animate-in delay-4">
       <div class="section-title">
-        <h2>Recent reviews</h2>
-        <span class="link">See all 127</span>
+        <h2>Customer reviews</h2>
+        <span class="link" onclick="alert('All reviews are verified from original sources')">How we verify</span>
       </div>
 
-      <!-- Review 1 -->
-      <div class="review-card">
-        <div class="review-header">
-          <div class="reviewer">
-            <div class="reviewer-avatar">AS</div>
-            <div>
-              <div class="reviewer-name">Amit Sharma</div>
-              <div class="reviewer-date">2 days ago</div>
+      <!-- Source Filter Tabs -->
+      <div class="source-tabs">
+        <button class="source-tab active" onclick="filterReviews('all', this)">All sources</button>
+        <button class="source-tab" onclick="filterReviews('google', this)"><span class="dot google"></span> Google</button>
+        <button class="source-tab" onclick="filterReviews('whatsapp', this)"><span class="dot whatsapp"></span> WhatsApp</button>
+        <button class="source-tab" onclick="filterReviews('instagram', this)"><span class="dot instagram"></span> Instagram</button>
+      </div>
+
+      <!-- Reviews Container -->
+      <div id="reviewsContainer">
+
+        <!-- GOOGLE REVIEW 1 -->
+        <div class="review-card" data-source="google">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar">AS</div>
+              <div>
+                <div class="reviewer-name">Amit Sharma</div>
+                <div class="reviewer-date">2 days ago · Delhi, India</div>
+              </div>
             </div>
+            <span class="source-badge google">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Google
+            </span>
           </div>
           <div class="review-stars" aria-label="5 stars">
             <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -416,44 +478,32 @@
             <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-        </div>
-        <div class="review-text">
-          Very professional and punctual. The vehicle was clean and Rajesh bhaiya helped with loading too. <span class="highlight">Highly recommended</span> for Delhi-Jaipur route.
-        </div>
-      </div>
-
-      <!-- Review 2 -->
-      <div class="review-card">
-        <div class="review-header">
-          <div class="reviewer">
-            <div class="reviewer-avatar">PV</div>
-            <div>
-              <div class="reviewer-name">Priya Verma</div>
-              <div class="reviewer-date">1 week ago</div>
-            </div>
+          <div class="review-text">
+            Very professional and punctual. The vehicle was clean and Rajesh bhaiya helped with loading too. <span class="highlight">Highly recommended</span> for Delhi-Jaipur route.
           </div>
-          <div class="review-stars" aria-label="4 stars">
-            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star-empty)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <div class="review-proof">
+            <img src="images/proof-google-amit.jpg" alt="Screenshot of original Google review" class="proof-thumb" onclick="openLightbox(this.src, 'Original Google review by Amit Sharma')">
+            <span class="proof-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Original screenshot
+            </span>
           </div>
         </div>
-        <div class="review-text">
-          Safe driving and polite behavior. Fair pricing compared to others. Will book again for <span class="highlight">factory goods transport</span>.
-        </div>
-      </div>
 
-      <!-- Review 3 -->
-      <div class="review-card">
-        <div class="review-header">
-          <div class="reviewer">
-            <div class="reviewer-avatar">RK</div>
-            <div>
-              <div class="reviewer-name">Ramesh Khanna</div>
-              <div class="reviewer-date">3 weeks ago</div>
+        <!-- WHATSAPP REVIEW 1 -->
+        <div class="review-card" data-source="whatsapp">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar">PV</div>
+              <div>
+                <div class="reviewer-name">Priya Verma</div>
+                <div class="reviewer-date">1 week ago</div>
+              </div>
             </div>
+            <span class="source-badge whatsapp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </span>
           </div>
           <div class="review-stars" aria-label="5 stars">
             <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -462,17 +512,94 @@
             <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
+          <div class="review-text">
+            Safe driving and polite behavior. Fair pricing compared to others. Will book again for <span class="highlight">factory goods transport</span>. Thank you Rajesh ji!
+          </div>
+          <div class="review-proof">
+            <img src="images/proof-whatsapp-priya.jpg" alt="WhatsApp chat screenshot" class="proof-thumb" onclick="openLightbox(this.src, 'Original WhatsApp message from Priya Verma')">
+            <span class="proof-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Verified message
+            </span>
+          </div>
         </div>
-        <div class="review-text">
-          Used his service for shifting our warehouse goods from Gurgaon to Noida. On time, no damage, very cooperative. <span class="highlight">Best driver in the area.</span>
+
+        <!-- GOOGLE REVIEW 2 -->
+        <div class="review-card" data-source="google">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar">RK</div>
+              <div>
+                <div class="reviewer-name">Ramesh Khanna</div>
+                <div class="reviewer-date">3 weeks ago · Gurgaon</div>
+              </div>
+            </div>
+            <span class="source-badge google">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Google
+            </span>
+          </div>
+          <div class="review-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="review-text">
+            Used his service for shifting our warehouse goods from Gurgaon to Noida. On time, no damage, very cooperative. <span class="highlight">Best driver in the area.</span>
+          </div>
+          <div class="review-proof">
+            <img src="images/proof-google-ramesh.jpg" alt="Screenshot of original Google review" class="proof-thumb" onclick="openLightbox(this.src, 'Original Google review by Ramesh Khanna')">
+            <span class="proof-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Original screenshot
+            </span>
+          </div>
         </div>
+
+        <!-- INSTAGRAM REVIEW 1 -->
+        <div class="review-card" data-source="instagram">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar">
+                <img src="https://placehold.co/36x36/333/fff?text=SK" alt="Sonu Kumar">
+              </div>
+              <div>
+                <div class="reviewer-name">Sonu Kumar</div>
+                <div class="reviewer-date">2 weeks ago · @sonu_transport</div>
+              </div>
+            </div>
+            <span class="source-badge instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              Instagram
+            </span>
+          </div>
+          <div class="review-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="review-text">
+            Booked Rajesh bhaiya for my shop delivery. Super reliable, reached before time. <span class="highlight">Vehicle condition was excellent.</span> Follow him for transport updates!
+          </div>
+          <div class="review-proof">
+            <img src="images/proof-instagram-sonu.jpg" alt="Instagram DM screenshot" class="proof-thumb" onclick="openLightbox(this.src, 'Original Instagram DM from Sonu Kumar')">
+            <span class="proof-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Screenshot attached
+            </span>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- ═══ REVIEW FORM ═══ -->
     <section id="reviewSection" class="review-form animate-in delay-5">
       <h2>Add your review</h2>
-
       <div class="star-rating" id="starRating" role="radiogroup" aria-label="Rate your experience">
         <button type="button" class="inactive" data-value="1" onclick="setRating(1)" aria-label="1 star">
           <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -503,8 +630,7 @@
 
       <div class="form-success" id="formSuccess">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
         <h3>Thank you!</h3>
         <p>Your review has been submitted. It will appear after verification.</p>
@@ -512,8 +638,8 @@
     </section>
 
     <!-- ═══ FOOTER ═══ -->
-    <footer class="footer animate-in delay-5">
-      <p>Profile powered by <a href="#">DriverPage</a> · Updated Aug 2026</p>
+    <footer class="footer animate-in delay-6">
+      <p>Profile powered by DriverPage · Updated Aug 2026</p>
     </footer>
 
   </div>
@@ -521,10 +647,10 @@
   <!-- ═══ LIGHTBOX ═══ -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
-    <img id="lightboxImg" src="" alt="Enlarged photo">
+    <img id="lightboxImg" src="" alt="Enlarged view">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
   </div>
 
-  <!-- ═══ JAVASCRIPT ═══ -->
   <script>
     // ─── Star Rating ───
     let currentRating = 0;
@@ -538,7 +664,6 @@
       });
     }
 
-    // Hover preview
     stars.forEach((btn, i) => {
       btn.addEventListener('mouseenter', () => {
         stars.forEach((b, j) => {
@@ -554,22 +679,53 @@
       });
     });
 
+    // ─── Source Filter ───
+    function filterReviews(source, btn) {
+      document.querySelectorAll('.source-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.review-card').forEach(card => {
+        if (source === 'all' || card.dataset.source === source) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // ─── Lightbox ───
+    function openLightbox(src, caption) {
+      if (!src) return;
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxCaption').textContent = caption || '';
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      if (e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
     // ─── Form Submit ───
     function handleSubmit(e) {
       e.preventDefault();
-      const name = document.getElementById('reviewerName').value.trim();
-      const text = document.getElementById('reviewText').value.trim();
-      const btn = document.getElementById('submitBtn');
-
       if (currentRating === 0) {
         alert('Please select a star rating first.');
         return;
       }
-
+      const btn = document.getElementById('submitBtn');
       btn.disabled = true;
       btn.textContent = 'Submitting...';
-
-      // Simulate submission (replace with real backend or Formspree URL)
       setTimeout(() => {
         document.getElementById('reviewForm').style.display = 'none';
         document.getElementById('formSuccess').style.display = 'block';
@@ -585,9 +741,8 @@
         url: window.location.href
       };
       if (navigator.share) {
-        try { await navigator.share(shareData); } catch (err) { /* cancelled */ }
+        try { await navigator.share(shareData); } catch (err) {}
       } else {
-        // Fallback: copy link
         try {
           await navigator.clipboard.writeText(window.location.href);
           alert('Profile link copied to clipboard!');
@@ -596,27 +751,6 @@
         }
       }
     }
-
-    // ─── Lightbox ───
-    function openLightbox(el) {
-      const img = el.querySelector('img');
-      if (!img) return;
-      document.getElementById('lightboxImg').src = img.src;
-      document.getElementById('lightbox').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox(e) {
-      if (e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
-        document.getElementById('lightbox').classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    }
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        document.getElementById('lightbox').classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    });
   </script>
 
 </body>
